@@ -1,0 +1,2585 @@
+/* =========================================================
+   CAMPUSCONNECT AI — DASHBOARD
+   Botanical Campus Theme
+========================================================= */
+
+:root {
+  --campus-blue: #12366b;
+  --campus-blue-2: #1d5a91;
+  --campus-teal: #258978;
+
+  --primary: #2563eb;
+  --primary-dark: #1749b5;
+  --primary-light: #eaf2ff;
+
+  --green: #4f8f68;
+  --green-light: #edf7f0;
+
+  --pink: #f2a6b9;
+  --peach: #fff0e9;
+
+  --lavender: #f2efff;
+
+  --background: #f6f9fc;
+  --surface: #ffffff;
+
+  --text: #10244a;
+  --text-secondary: #667a9d;
+  --text-light: #94a5bd;
+
+  --border: #dce5ef;
+  --border-light: #e9eef5;
+
+  --danger: #dc4b5c;
+
+  --shadow-sm:
+    0 5px 18px rgba(25, 55, 90, 0.055);
+
+  --shadow:
+    0 15px 40px rgba(25, 55, 90, 0.09);
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(255, 215, 205, 0.45),
+      transparent 23%
+    ),
+    radial-gradient(
+      circle at 48% 95%,
+      rgba(190, 230, 208, 0.5),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 95% 65%,
+      rgba(221, 214, 255, 0.4),
+      transparent 24%
+    ),
+    linear-gradient(
+      135deg,
+      #f5faf8 0%,
+      #f5f8ff 55%,
+      #fff8f5 100%
+    );
+
+  color: var(--text);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+  position: relative;
+
+  width: 275px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 26px 17px;
+
+  box-sizing: border-box;
+
+  flex-shrink: 0;
+
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(105, 194, 170, 0.25),
+      transparent 25%
+    ),
+    linear-gradient(
+      160deg,
+      #102f68 0%,
+      #164b91 55%,
+      #176b75 100%
+    );
+
+  overflow: hidden;
+}
+
+
+/* Large decorative leaf */
+
+.sidebar::before {
+  content: "🌿";
+
+  position: absolute;
+
+  top: -5px;
+  right: -15px;
+
+  font-size: 82px;
+
+  opacity: 0.2;
+
+  transform: rotate(18deg);
+
+  pointer-events: none;
+}
+
+
+/* Bottom flowers */
+
+.sidebar::after {
+  content: "🌸  🌼  🌿";
+
+  position: absolute;
+
+  bottom: 18px;
+  left: -12px;
+
+  font-size: 47px;
+
+  letter-spacing: 3px;
+
+  opacity: 0.22;
+
+  transform: rotate(-10deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   SIDEBAR LOGO
+========================================================= */
+
+.sidebar-logo {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 0 11px 38px;
+}
+
+.sidebar-logo-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #3b82f6,
+      #3fa47e
+    );
+
+  color: white;
+
+  font-size: 24px;
+
+  box-shadow:
+    0 9px 25px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-logo h1 {
+  margin: 0;
+
+  color: white;
+
+  font-size: 19px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.4px;
+}
+
+.sidebar-logo span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.sidebar-nav {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.nav-item {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px 16px;
+
+  box-sizing: border-box;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-family: inherit;
+
+  font-size: 16px;
+
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-item svg {
+  width: 21px;
+  height: 21px;
+
+  flex-shrink: 0;
+}
+
+.nav-item:hover {
+  background:
+    rgba(255, 255, 255, 0.1);
+
+  color: white;
+
+  transform: translateX(2px);
+}
+
+.nav-item.active {
+  background:
+    rgba(255, 255, 255, 0.15);
+
+  color: white;
+
+  font-weight: 700;
+
+  box-shadow:
+    inset 3px 0 0 #8ed6b0;
+}
+
+.nav-item.active:hover {
+  background:
+    rgba(255, 255, 255, 0.18);
+}
+
+.nav-item.logout:hover {
+  color: #ffd5d9;
+
+  background:
+    rgba(255, 120, 130, 0.12);
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
+
+.sidebar-bottom {
+  position: relative;
+
+  z-index: 2;
+
+  margin-top: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.dashboard-main {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.dashboard-header {
+  position: relative;
+
+  z-index: 5;
+
+  min-height: 88px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 45px;
+
+  box-sizing: border-box;
+
+  background:
+    rgba(255, 255, 255, 0.7);
+
+  border-bottom:
+    1px solid rgba(210, 221, 232, 0.75);
+}
+
+.dashboard-header h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 23px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+.dashboard-header p {
+  margin: 6px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   USER PROFILE
+========================================================= */
+
+.user-profile {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 6px 9px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: transparent;
+
+  font-family: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.user-profile:hover {
+  background:
+    rgba(255, 255, 255, 0.7);
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eaf2ff,
+      #edf7f0
+    );
+
+  color: var(--campus-blue);
+}
+
+.user-profile strong {
+  display: block;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+.user-profile span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: var(--text-light);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   CHAT AREA
+========================================================= */
+
+.chat-area {
+  position: relative;
+
+  flex: 1;
+
+  min-height: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 45px 35px 25px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 35%,
+      rgba(185, 226, 201, 0.28),
+      transparent 23%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(255, 211, 202, 0.3),
+      transparent 23%
+    );
+}
+
+
+/* =========================================================
+   TOP LEFT BOTANICAL
+========================================================= */
+
+.chat-area::before {
+  content: "🌿 🌸";
+
+  position: absolute;
+
+  left: 18px;
+  top: 85px;
+
+  font-size: 65px;
+
+  line-height: 1.1;
+
+  letter-spacing: 3px;
+
+  opacity: 0.48;
+
+  transform: rotate(-15deg);
+
+  pointer-events: none;
+
+  animation:
+    gardenFloatLeft 6s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   TOP RIGHT BOTANICAL
+========================================================= */
+
+.chat-area::after {
+  content: "🌼 🌿";
+
+  position: absolute;
+
+  right: 15px;
+  top: 100px;
+
+  font-size: 60px;
+
+  line-height: 1.1;
+
+  letter-spacing: 3px;
+
+  opacity: 0.45;
+
+  transform: rotate(13deg);
+
+  pointer-events: none;
+
+  animation:
+    gardenFloatRight 7s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   WELCOME CONTENT
+========================================================= */
+
+.welcome-content {
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+
+  max-width: 900px;
+
+  text-align: center;
+
+  margin-top: 60px;
+}
+
+
+/* Bottom botanical left */
+
+.welcome-content::before {
+  content: "🪴 🌱";
+
+  position: absolute;
+
+  left: -105px;
+  bottom: -30px;
+
+  font-size: 54px;
+
+  letter-spacing: 2px;
+
+  opacity: 0.48;
+
+  transform: rotate(-8deg);
+
+  pointer-events: none;
+}
+
+
+/* Bottom botanical right */
+
+.welcome-content::after {
+  content: "🌸 🌼";
+
+  position: absolute;
+
+  right: -105px;
+  bottom: -25px;
+
+  font-size: 48px;
+
+  letter-spacing: 3px;
+
+  opacity: 0.45;
+
+  transform: rotate(9deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   WELCOME ICON
+========================================================= */
+
+.welcome-icon {
+  width: 82px;
+  height: 82px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 27px;
+
+  border-radius: 23px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #eaf2ff,
+      #edf7f0
+    );
+
+  color: var(--primary);
+
+  font-size: 37px;
+
+  box-shadow:
+    0 12px 32px rgba(37, 99, 235, 0.09);
+}
+
+
+/* =========================================================
+   WELCOME TITLE
+========================================================= */
+
+.welcome-content h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 43px;
+
+  line-height: 1.18;
+
+  font-weight: 800;
+
+  letter-spacing: -1.3px;
+}
+
+.welcome-content > p {
+  max-width: 720px;
+
+  margin: 16px auto 0;
+
+  color: var(--text-secondary);
+
+  font-size: 18px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   SUGGESTIONS
+========================================================= */
+
+.suggestions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-top: 34px;
+}
+
+.suggestions button {
+  padding: 13px 19px;
+
+  border:
+    1px solid rgba(210, 222, 235, 0.9);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.78);
+
+  color: #526685;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 12px rgba(40, 70, 100, 0.035);
+
+  transition:
+    0.2s ease;
+}
+
+.suggestions button:hover {
+  border-color: #9bbcf0;
+
+  background:
+    #f1f6ff;
+
+  color: var(--primary);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================================
+   CHAT MESSAGES
+========================================================= */
+
+.chat-messages {
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+
+  max-width: 900px;
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+  overflow-y: auto;
+
+  padding: 20px 0 30px;
+}
+
+.message {
+  display: flex;
+
+  flex-direction: column;
+
+  max-width: 78%;
+}
+
+.user-message {
+  align-self: flex-end;
+
+  align-items: flex-end;
+}
+
+.assistant-message {
+  align-self: flex-start;
+}
+
+.message-bubble {
+  padding: 15px 19px;
+
+  border-radius: 16px;
+
+  font-size: 16px;
+
+  line-height: 1.65;
+}
+
+.user-message .message-bubble {
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #2d75dc
+    );
+
+  color: white;
+
+  border-bottom-right-radius: 5px;
+
+  box-shadow:
+    0 7px 18px rgba(37, 99, 235, 0.12);
+}
+
+.assistant-message .message-bubble {
+  background:
+    rgba(255, 255, 255, 0.9);
+
+  border:
+    1px solid var(--border);
+
+  color: #334155;
+
+  border-bottom-left-radius: 5px;
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   SOURCES
+========================================================= */
+
+.message-sources {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 8px;
+
+  font-size: 13px;
+
+  color: var(--text-secondary);
+}
+
+.message-sources strong {
+  margin-right: 4px;
+}
+
+.message-sources span {
+  padding: 5px 9px;
+
+  border-radius: 7px;
+
+  background: #edf2f7;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.loading-icon {
+  animation:
+    spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   CHAT INPUT
+========================================================= */
+
+.chat-input-container {
+  position: relative;
+
+  z-index: 4;
+
+  width: 100%;
+
+  max-width: 900px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: auto;
+
+  padding: 10px 11px 10px 15px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid rgba(204, 217, 231, 0.95);
+
+  border-radius: 18px;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  box-shadow:
+    0 12px 35px rgba(40, 70, 100, 0.09);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.chat-input-container:focus-within {
+  border-color: #87aef0;
+
+  box-shadow:
+    0 12px 35px rgba(40, 70, 100, 0.09),
+    0 0 0 4px rgba(37, 99, 235, 0.07);
+}
+
+.chat-input-container input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 11px 5px;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  font-size: 17px;
+}
+
+.chat-input-container input::placeholder {
+  color: #9aabc0;
+}
+
+
+/* =========================================================
+   ATTACHMENT
+========================================================= */
+
+.attachment-button {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: transparent;
+
+  color: #70829d;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.attachment-button:hover {
+  background: var(--primary-light);
+
+  color: var(--primary);
+}
+
+
+/* =========================================================
+   SEND
+========================================================= */
+
+.send-button {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #258b78
+    );
+
+  color: white;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 18px rgba(37, 99, 235, 0.18);
+
+  transition:
+    0.2s ease;
+}
+
+.send-button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #1d4ed8,
+      #19715f
+    );
+
+  transform: translateY(-2px);
+}
+
+.send-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   DISCLAIMER
+========================================================= */
+
+.chat-disclaimer {
+  position: relative;
+
+  z-index: 3;
+
+  margin: 11px 0 0;
+
+  color: var(--text-light);
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   SELECTED FILE
+========================================================= */
+
+.selected-file {
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+
+  max-width: 900px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: 10px;
+
+  padding: 10px 14px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid #d7e1ec;
+
+  border-radius: 11px;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  color: #526685;
+
+  font-size: 14px;
+}
+
+.selected-file span {
+  flex: 1;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.selected-file button {
+  width: 29px;
+  height: 29px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #70829d;
+
+  cursor: pointer;
+}
+
+.selected-file button:hover {
+  color: var(--danger);
+
+  background: #fff1f2;
+}
+
+
+/* =========================================================
+   CONTENT SECTIONS
+========================================================= */
+
+.content-section {
+  flex: 1;
+
+  padding: 48px 55px;
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+}
+
+.content-heading {
+  max-width: 1100px;
+
+  margin-bottom: 32px;
+}
+
+.content-heading h1 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 37px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.9px;
+}
+
+.content-heading p {
+  margin: 10px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 17px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   KNOWLEDGE GRID
+========================================================= */
+
+.knowledge-grid {
+  width: 100%;
+
+  max-width: 1100px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 21px;
+}
+
+.knowledge-card {
+  position: relative;
+
+  padding: 29px;
+
+  border:
+    1px solid rgba(213, 224, 236, 0.9);
+
+  border-radius: 19px;
+
+  background:
+    rgba(255, 255, 255, 0.85);
+
+  overflow: hidden;
+
+  box-shadow:
+    0 7px 25px rgba(40, 70, 100, 0.055);
+
+  cursor: pointer;
+
+  transition:
+    0.25s ease;
+}
+
+.knowledge-card::after {
+  content: "🌱";
+
+  position: absolute;
+
+  right: -8px;
+  bottom: -15px;
+
+  font-size: 58px;
+
+  opacity: 0.12;
+
+  transform: rotate(-10deg);
+
+  pointer-events: none;
+}
+
+.knowledge-card:hover {
+  border-color: #a9c6ee;
+
+  box-shadow: var(--shadow);
+
+  transform: translateY(-4px);
+}
+
+.knowledge-card svg {
+  width: 28px;
+  height: 28px;
+
+  color: var(--primary);
+}
+
+.knowledge-card h3 {
+  margin: 18px 0 8px;
+
+  color: var(--text);
+
+  font-size: 20px;
+
+  font-weight: 750;
+}
+
+.knowledge-card p {
+  margin: 0;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   UPLOAD CARD
+========================================================= */
+
+.upload-card {
+  max-width: 760px;
+
+  padding: 55px 45px;
+
+  text-align: center;
+
+  border:
+    1px dashed #b8c9db;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255, 255, 255, 0.86);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.upload-card > svg {
+  width: 44px;
+  height: 44px;
+
+  color: var(--green);
+}
+
+.upload-card h2 {
+  margin: 21px 0 10px;
+
+  color: var(--text);
+
+  font-size: 25px;
+
+  font-weight: 800;
+}
+
+.upload-card p {
+  max-width: 570px;
+
+  margin: 0 auto 29px;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+/* =========================================================
+   BEAUTIFUL BOTANICAL UPLOAD BUTTON
+========================================================= */
+
+.upload-button {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-width: 165px;
+  padding: 13px 24px;
+
+  border: 1px solid rgba(37, 137, 120, 0.25);
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #12366b 0%,
+      #1d5a91 50%,
+      #258978 100%
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(18, 54, 107, 0.16);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+/* Small leaf decoration */
+.upload-button::before {
+  content: "🌿";
+
+  font-size: 16px;
+
+  opacity: 0.9;
+
+  transition: transform 0.25s ease;
+}
+
+
+/* Hover */
+.upload-button:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(37, 137, 120, 0.45);
+
+  box-shadow:
+    0 12px 26px rgba(18, 54, 107, 0.22);
+}
+
+
+/* Move the leaf slightly */
+.upload-button:hover::before {
+  transform: rotate(-12deg) scale(1.08);
+}
+
+
+/* Click */
+.upload-button:active {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 13px rgba(18, 54, 107, 0.16);
+}
+
+
+/* =========================================================
+   DOCUMENT NOTE
+========================================================= */
+
+.document-note {
+  max-width: 760px;
+
+  margin-top: 20px;
+
+  padding: 18px 21px;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef6ff,
+      #eff8f2
+    );
+
+  color: #28517e;
+
+  font-size: 14px;
+}
+
+.document-note strong {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 15px;
+}
+
+.document-note p {
+  margin: 0;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   COLLEGE KNOWLEDGE UPLOAD
+========================================================= */
+
+.knowledge-upload-card {
+  width: 100%;
+
+  max-width: 1100px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 21px;
+
+  padding: 25px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid rgba(210, 224, 236, 0.9);
+
+  border-radius: 19px;
+
+  background:
+    rgba(255, 255, 255, 0.85);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.knowledge-upload-icon {
+  width: 60px;
+  height: 60px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background:
+    var(--green-light);
+
+  color: var(--green);
+}
+
+.knowledge-upload-content {
+  flex: 1;
+}
+
+.knowledge-upload-content h2 {
+  margin: 0 0 7px;
+
+  color: var(--text);
+
+  font-size: 20px;
+
+  font-weight: 750;
+}
+
+.knowledge-upload-content p {
+  margin: 0;
+
+  max-width: 760px;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+
+  line-height: 1.65;
+}
+
+.knowledge-upload-button {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 12px 19px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--campus-teal)
+    );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition: 0.2s ease;
+}
+
+.knowledge-upload-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(37, 99, 235, 0.15);
+}
+
+
+/* =========================================================
+   EMPTY KNOWLEDGE STATE
+========================================================= */
+
+.knowledge-empty {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 1100px;
+
+  min-height: 310px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 40px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  background:
+    rgba(255, 255, 255, 0.84);
+
+  border:
+    1px solid rgba(210, 224, 236, 0.9);
+
+  border-radius: 20px;
+
+  box-shadow: var(--shadow-sm);
+
+  overflow: hidden;
+}
+
+.knowledge-empty::before {
+  content: "🌿      🌸      🌿";
+
+  position: absolute;
+
+  top: 15px;
+
+  left: 0;
+
+  width: 100%;
+
+  font-size: 35px;
+
+  opacity: 0.15;
+
+  letter-spacing: 15px;
+
+  pointer-events: none;
+}
+
+.knowledge-empty::after {
+  content: "🌱      🌼      🌱";
+
+  position: absolute;
+
+  bottom: 10px;
+
+  left: 0;
+
+  width: 100%;
+
+  font-size: 32px;
+
+  opacity: 0.15;
+
+  letter-spacing: 18px;
+
+  pointer-events: none;
+}
+
+.knowledge-empty-icon {
+  position: relative;
+
+  z-index: 2;
+
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 19px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary-light),
+      var(--green-light)
+    );
+
+  color: var(--primary);
+}
+
+.knowledge-empty h3 {
+  position: relative;
+
+  z-index: 2;
+
+  margin: 0 0 8px;
+
+  color: var(--text);
+
+  font-size: 21px;
+
+  font-weight: 750;
+}
+
+.knowledge-empty p {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 530px;
+
+  margin: 0;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   DOCUMENT LIST
+========================================================= */
+
+.knowledge-documents {
+  width: 100%;
+
+  max-width: 1100px;
+
+  margin-top: 34px;
+}
+
+.documents-heading {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 17px;
+}
+
+.documents-heading h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 22px;
+
+  font-weight: 800;
+}
+
+.documents-heading p {
+  margin: 5px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+.document-count {
+  padding: 7px 13px;
+
+  border-radius: 20px;
+
+  background: var(--primary-light);
+
+  color: var(--primary);
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   DOCUMENT LIST ITEMS
+========================================================= */
+
+.document-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 13px;
+}
+
+.document-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 17px;
+
+  padding: 18px 20px;
+
+  border:
+    1px solid rgba(212, 224, 236, 0.9);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.87);
+
+  transition: 0.2s ease;
+}
+
+.document-card:hover {
+  border-color: #aec8e9;
+
+  box-shadow: var(--shadow-sm);
+
+  transform: translateY(-1px);
+}
+
+.document-icon {
+  width: 49px;
+  height: 49px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background:
+    var(--primary-light);
+
+  color: var(--primary);
+}
+
+.document-info {
+  flex: 1;
+
+  min-width: 0;
+}
+
+.document-info h3 {
+  margin: 0 0 5px;
+
+  color: var(--text);
+
+  font-size: 16px;
+
+  font-weight: 750;
+}
+
+.document-info p {
+  margin: 0 0 5px;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+.document-info span {
+  color: var(--text-light);
+
+  font-size: 13px;
+}
+
+.document-view-button {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 9px 15px;
+
+  border:
+    1px solid #bfd4f2;
+
+  border-radius: 9px;
+
+  background:
+    #f7faff;
+
+  color: var(--primary);
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.document-view-button:hover {
+  background: var(--primary-light);
+}
+
+
+/* =========================================================
+   PROFILE SETTINGS
+========================================================= */
+
+.profile-settings-card {
+  width: 100%;
+
+  max-width: 950px;
+
+  background:
+    rgba(255, 255, 255, 0.87);
+
+  border:
+    1px solid rgba(210, 224, 236, 0.9);
+
+  border-radius: 20px;
+
+  box-shadow: var(--shadow-sm);
+
+  overflow: hidden;
+}
+
+.profile-settings-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 25px 28px;
+
+  border-bottom:
+    1px solid var(--border-light);
+}
+
+.profile-settings-header h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 22px;
+
+  font-weight: 800;
+}
+
+.profile-settings-header p {
+  margin: 6px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
+
+.edit-profile-button {
+  padding: 10px 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--campus-teal)
+    );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.edit-profile-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(37, 99, 235, 0.16);
+}
+
+
+/* =========================================================
+   PROFILE FORM
+========================================================= */
+
+.profile-form {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 24px;
+
+  padding: 29px;
+}
+
+.profile-form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.profile-form-group label {
+  color: #334155;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.profile-form-group input,
+.profile-form-group select {
+  width: 100%;
+
+  height: 47px;
+
+  box-sizing: border-box;
+
+  padding: 0 14px;
+
+  border:
+    1px solid #d6e1ed;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background:
+    rgba(255, 255, 255, 0.9);
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  transition: 0.2s ease;
+}
+
+.profile-form-group input:focus,
+.profile-form-group select:focus {
+  border-color: #72a1ed;
+
+  box-shadow:
+    0 0 0 4px rgba(37, 99, 235, 0.07);
+}
+
+.profile-form-group input:disabled,
+.profile-form-group select:disabled {
+  background: #f7f9fc;
+
+  color: var(--text-secondary);
+
+  cursor: default;
+}
+
+
+/* =========================================================
+   PROFILE ACTIONS
+========================================================= */
+
+.profile-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding: 18px 28px;
+
+  border-top:
+    1px solid var(--border-light);
+
+  background:
+    rgba(248, 251, 255, 0.75);
+}
+
+.cancel-profile-button,
+.save-profile-button {
+  padding: 11px 19px;
+
+  border-radius: 10px;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.cancel-profile-button {
+  border:
+    1px solid #d6e0eb;
+
+  background: white;
+
+  color: #526685;
+}
+
+.cancel-profile-button:hover {
+  background: #f7f9fc;
+}
+
+.save-profile-button {
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--campus-teal)
+    );
+
+  color: white;
+}
+
+.save-profile-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(37, 99, 235, 0.16);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes gardenFloatLeft {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(-15deg);
+  }
+
+  50% {
+    transform:
+      translateY(-9px)
+      rotate(-10deg);
+  }
+}
+
+@keyframes gardenFloatRight {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(13deg);
+  }
+
+  50% {
+    transform:
+      translateY(-8px)
+      rotate(18deg);
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .sidebar {
+    width: 230px;
+  }
+
+  .dashboard-header {
+    padding: 0 30px;
+  }
+
+  .content-section {
+    padding: 40px 35px;
+  }
+
+  .welcome-content h1 {
+    font-size: 37px;
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    width: 82px;
+
+    padding: 22px 10px;
+  }
+
+  .sidebar-logo {
+    justify-content: center;
+
+    padding: 4px 0 35px;
+  }
+
+  .sidebar-logo > div:last-child {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: center;
+
+    padding: 14px;
+  }
+
+  .nav-item span {
+    display: none;
+  }
+
+  .dashboard-header {
+    padding: 0 25px;
+  }
+
+  .knowledge-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-section {
+    padding: 35px 25px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .sidebar {
+    width: 67px;
+
+    padding: 18px 7px;
+  }
+
+  .sidebar-logo {
+    padding-bottom: 25px;
+  }
+
+  .sidebar-logo-icon {
+    width: 43px;
+    height: 43px;
+
+    font-size: 20px;
+  }
+
+  .dashboard-header {
+    min-height: 74px;
+
+    padding: 0 15px;
+  }
+
+  .dashboard-header h2 {
+    font-size: 19px;
+  }
+
+  .dashboard-header p {
+    font-size: 12px;
+  }
+
+  .user-avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .user-profile > div:last-child {
+    display: none;
+  }
+
+
+  /* Chat */
+
+  .chat-area {
+    padding: 25px 14px 18px;
+  }
+
+  .welcome-content {
+    margin-top: 35px;
+  }
+
+  .welcome-icon {
+    width: 63px;
+    height: 63px;
+
+    font-size: 29px;
+  }
+
+  .welcome-content h1 {
+    font-size: 30px;
+  }
+
+  .welcome-content > p {
+    font-size: 15px;
+  }
+
+
+  /* Botanical */
+
+  .chat-area::before {
+    left: 0;
+    top: 95px;
+
+    font-size: 40px;
+
+    opacity: 0.28;
+  }
+
+  .chat-area::after {
+    right: 0;
+    top: 100px;
+
+    font-size: 38px;
+
+    opacity: 0.28;
+  }
+
+  .welcome-content::before,
+  .welcome-content::after {
+    display: none;
+  }
+
+
+  /* Suggestions */
+
+  .suggestions {
+    flex-direction: column;
+
+    width: 100%;
+
+    gap: 9px;
+  }
+
+  .suggestions button {
+    width: 100%;
+  }
+
+
+  /* Input */
+
+  .chat-input-container {
+    border-radius: 15px;
+  }
+
+  .chat-input-container input {
+    font-size: 15px;
+  }
+
+
+  /* Content */
+
+  .content-section {
+    padding: 30px 18px;
+  }
+
+  .content-heading h1 {
+    font-size: 29px;
+  }
+
+  .content-heading p {
+    font-size: 15px;
+  }
+
+
+  /* Upload */
+
+  .upload-card {
+    padding: 40px 22px;
+  }
+
+  .knowledge-upload-card {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    text-align: center;
+  }
+
+  .knowledge-upload-icon {
+    margin: 0 auto;
+  }
+
+  .knowledge-upload-button {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+
+  /* Documents */
+
+  .documents-heading {
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+
+  .document-card {
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+  }
+
+  .document-view-button {
+    margin-left: 66px;
+  }
+
+
+  /* Profile */
+
+  .profile-settings-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 16px;
+  }
+
+  .edit-profile-button {
+    width: 100%;
+  }
+
+  .profile-form {
+    grid-template-columns: 1fr;
+
+    padding: 22px;
+
+    gap: 20px;
+  }
+
+  .profile-actions {
+    padding: 16px 22px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+  .sidebar {
+    width: 58px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .dashboard-header {
+    padding: 0 10px;
+  }
+
+  .dashboard-header h2 {
+    font-size: 17px;
+  }
+
+  .chat-area {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .welcome-content h1 {
+    font-size: 27px;
+  }
+
+  .content-section {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+/* =====================================================
+   AI RESPONSE MARKDOWN
+===================================================== */
+
+.message-bubble p {
+  margin: 0 0 12px;
+  line-height: 1.7;
+}
+
+.message-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+/* Bold text */
+
+.message-bubble strong {
+  font-weight: 750;
+  color: var(--text);
+}
+
+/* Headings */
+
+.message-bubble h1,
+.message-bubble h2,
+.message-bubble h3 {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.message-bubble h1 {
+  font-size: 21px;
+}
+
+.message-bubble h2 {
+  font-size: 18px;
+}
+
+.message-bubble h3 {
+  font-size: 16px;
+}
+
+/* Lists */
+
+.message-bubble ul,
+.message-bubble ol {
+  margin: 10px 0;
+  padding-left: 24px;
+}
+
+.message-bubble li {
+  margin-bottom: 7px;
+  line-height: 1.6;
+}
+
+/* Tables */
+
+.message-bubble table {
+  width: 100%;
+  margin: 16px 0;
+
+  border-collapse: collapse;
+
+  font-size: 14px;
+}
+
+.message-bubble th,
+.message-bubble td {
+  padding: 10px 12px;
+
+  border: 1px solid var(--border);
+
+  text-align: left;
+}
+
+.message-bubble th {
+  background: var(--primary-light);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.message-bubble td {
+  background: #ffffff;
+}
+
+/* Horizontal line */
+
+.message-bubble hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 18px 0;
+}

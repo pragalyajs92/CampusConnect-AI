@@ -1,0 +1,1077 @@
+/* =========================================================
+   CAMPUSCONNECT AI
+   Pastel Botanical Login Theme
+========================================================= */
+
+:root {
+  --blue: #2563eb;
+  --blue-dark: #1749b5;
+  --blue-light: #eaf2ff;
+
+  --green: #4f8f68;
+  --green-light: #eaf6ee;
+
+  --pink: #f3a6b9;
+  --peach: #fff2eb;
+  --lavender: #f2efff;
+
+  --cream: #fffaf7;
+
+  --text: #10244a;
+  --text-secondary: #667a9d;
+  --border: #dbe4f0;
+
+  --shadow:
+    0 25px 70px rgba(45, 76, 120, 0.15);
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.login-page {
+  position: relative;
+
+  min-height: 100vh;
+
+  display: grid;
+
+  grid-template-columns: 43% 57%;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255, 211, 220, 0.55),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(194, 232, 213, 0.5),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #fffaf7,
+      #f4f8ff
+    );
+}
+
+
+/* =========================================================
+   RIGHT SIDE DECORATIVE FLOWERS
+========================================================= */
+
+.login-page::before {
+  content: "🌸  🌷  🌼";
+
+  position: absolute;
+
+  right: 25px;
+  top: 18px;
+
+  z-index: 1;
+
+  font-size: 42px;
+
+  letter-spacing: 8px;
+
+  opacity: 0.75;
+
+  transform: rotate(8deg);
+
+  pointer-events: none;
+}
+
+.login-page::after {
+  content: "🌿  🌸  🌿";
+
+  position: absolute;
+
+  right: 5px;
+  bottom: 10px;
+
+  z-index: 1;
+
+  font-size: 48px;
+
+  letter-spacing: 5px;
+
+  opacity: 0.7;
+
+  transform: rotate(-8deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   LEFT BRAND PANEL
+========================================================= */
+
+.login-brand {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 65px;
+
+  box-sizing: border-box;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(121, 181, 255, 0.45),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #1749a8 0%,
+      #2563d6 50%,
+      #3d82e7 100%
+    );
+
+  overflow: hidden;
+}
+
+
+/* Large soft circle */
+
+.login-brand::before {
+  content: "";
+
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  right: -220px;
+  top: 35%;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+
+  box-shadow:
+    0 0 0 90px rgba(255, 255, 255, 0.035);
+}
+
+
+/* Flowers on left panel */
+
+.login-brand::after {
+  content: "🌸  🌼\A🌿      🌸\A🌷  🌿  🌼";
+
+  white-space: pre;
+
+  position: absolute;
+
+  left: -15px;
+  top: -5px;
+
+  font-size: 43px;
+
+  line-height: 1.25;
+
+  letter-spacing: 5px;
+
+  opacity: 0.85;
+
+  transform: rotate(-7deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   BRAND CONTENT
+========================================================= */
+
+.brand-content {
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+
+  max-width: 520px;
+}
+
+
+/* =========================================================
+   BRAND ICON
+========================================================= */
+
+.brand-icon {
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 25px;
+
+  border-radius: 21px;
+
+  background:
+    rgba(255, 255, 255, 0.15);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.12);
+
+  color: white;
+}
+
+
+/* =========================================================
+   BRAND TITLE
+========================================================= */
+
+.brand-content h1 {
+  margin: 0;
+
+  color: white;
+
+  font-size: clamp(38px, 4vw, 52px);
+
+  line-height: 1.05;
+
+  font-weight: 800;
+
+  letter-spacing: -1.8px;
+}
+
+.brand-content > p {
+  margin: 16px 0 0;
+
+  color: #eaf2ff;
+
+  font-size: 22px;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   BRAND DESCRIPTION
+========================================================= */
+
+.brand-description {
+  max-width: 455px;
+
+  margin-top: 42px;
+
+  padding-left: 20px;
+
+  border-left:
+    3px solid rgba(255, 255, 255, 0.38);
+
+  color: #eaf2ff;
+
+  font-size: 17px;
+
+  line-height: 1.75;
+}
+
+.brand-description p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   EXTRA DECORATIVE FLOWERS
+========================================================= */
+
+.brand-content::before {
+  content: "🌿  🌸";
+
+  position: absolute;
+
+  right: -120px;
+  bottom: -120px;
+
+  font-size: 85px;
+
+  opacity: 0.6;
+
+  transform: rotate(-15deg);
+
+  pointer-events: none;
+}
+
+.brand-content::after {
+  content: "🌼";
+
+  position: absolute;
+
+  right: 20px;
+  top: 20px;
+
+  font-size: 45px;
+
+  opacity: 0.35;
+
+  transform: rotate(20deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   RIGHT LOGIN SECTION
+========================================================= */
+
+.login-section {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 55px 70px;
+
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(
+      ellipse at 10% 25%,
+      rgba(204, 234, 217, 0.65),
+      transparent 28%
+    ),
+    radial-gradient(
+      ellipse at 92% 18%,
+      rgba(255, 221, 211, 0.65),
+      transparent 27%
+    ),
+    radial-gradient(
+      ellipse at 80% 90%,
+      rgba(215, 207, 255, 0.5),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fcf9,
+      #fff8f5 55%,
+      #f7f5ff
+    );
+}
+
+
+/* =========================================================
+   PASTEL BACKGROUND SHAPES
+========================================================= */
+
+.login-section::before {
+  content: "";
+
+  position: absolute;
+
+  width: 330px;
+  height: 330px;
+
+  left: -130px;
+  top: 25%;
+
+  border-radius: 50%;
+
+  background:
+    rgba(190, 229, 207, 0.32);
+
+  filter: blur(3px);
+
+  pointer-events: none;
+}
+
+.login-section::after {
+  content: "🌿";
+
+  position: absolute;
+
+  left: 10px;
+  bottom: 35px;
+
+  font-size: 95px;
+
+  opacity: 0.38;
+
+  transform: rotate(-15deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login-card {
+  position: relative;
+
+  z-index: 4;
+
+  width: 100%;
+
+  max-width: 515px;
+
+  padding: 42px 44px;
+
+  box-sizing: border-box;
+
+  border:
+    1px solid rgba(210, 220, 235, 0.8);
+
+  border-radius: 28px;
+
+  background:
+    rgba(255, 255, 255, 0.88);
+
+  box-shadow: var(--shadow);
+}
+
+
+/* =========================================================
+   CARD DECORATION
+========================================================= */
+
+.login-card::before {
+  content: "🌸";
+
+  position: absolute;
+
+  right: -25px;
+  top: -25px;
+
+  font-size: 48px;
+
+  opacity: 0.7;
+
+  transform: rotate(15deg);
+
+  pointer-events: none;
+}
+
+.login-card::after {
+  content: "🌿";
+
+  position: absolute;
+
+  left: -30px;
+  bottom: -25px;
+
+  font-size: 60px;
+
+  opacity: 0.35;
+
+  transform: rotate(-20deg);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   MOBILE LOGO
+========================================================= */
+
+.mobile-logo {
+  display: none;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.login-heading {
+  margin-bottom: 29px;
+
+  text-align: left;
+}
+
+.login-heading h2 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 34px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  letter-spacing: -0.8px;
+}
+
+.login-heading p {
+  margin: 9px 0 0;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   ROLE SELECTION
+========================================================= */
+
+.role-section {
+  margin-bottom: 25px;
+}
+
+.role-section label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: var(--text);
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.role-buttons {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+.role-button {
+  min-height: 55px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  padding: 13px 15px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 13px;
+
+  background: rgba(255, 255, 255, 0.8);
+
+  color: #526685;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    0.2s ease;
+}
+
+.role-button:hover {
+  border-color: #a7c5f6;
+
+  background: #f7faff;
+
+  transform: translateY(-1px);
+}
+
+.role-button.active {
+  border-color: #4c88ed;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eef5ff,
+      #f2f7ff
+    );
+
+  color: var(--blue);
+
+  box-shadow:
+    0 6px 18px rgba(37, 99, 235, 0.1);
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-group {
+  margin-bottom: 19px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--text);
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.form-group input {
+  width: 100%;
+
+  min-height: 51px;
+
+  box-sizing: border-box;
+
+  padding: 13px 16px;
+
+  border:
+    1px solid #d8e1ed;
+
+  border-radius: 12px;
+
+  outline: none;
+
+  background:
+    rgba(255, 255, 255, 0.9);
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  transition:
+    0.2s ease;
+}
+
+.form-group input:hover {
+  border-color: #b9c9dc;
+}
+
+.form-group input:focus {
+  border-color: #6094ee;
+
+  box-shadow:
+    0 0 0 4px rgba(37, 99, 235, 0.08);
+}
+
+.form-group input::placeholder {
+  color: #9aabc2;
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 53px;
+}
+
+.password-input button {
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  width: 33px;
+  height: 33px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  transform: translateY(-50%);
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #70829d;
+
+  cursor: pointer;
+
+  transition:
+    0.2s ease;
+}
+
+.password-input button:hover {
+  color: var(--blue);
+
+  background: var(--blue-light);
+}
+
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+.forgot-password {
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: -4px;
+
+  margin-bottom: 21px;
+}
+
+.forgot-password button {
+  border: none;
+
+  background: transparent;
+
+  color: var(--blue);
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.forgot-password button:hover {
+  color: var(--blue-dark);
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-button {
+  width: 100%;
+
+  min-height: 53px;
+
+  padding: 14px 18px;
+
+  border: none;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #3979eb
+    );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(37, 99, 235, 0.2);
+
+  transition:
+    0.2s ease;
+}
+
+.submit-button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #1d4ed8,
+      #2563eb
+    );
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 30px rgba(37, 99, 235, 0.25);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   LOGIN / SIGNUP SWITCH
+========================================================= */
+
+.switch-mode {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 25px;
+
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+.switch-mode button {
+  border: none;
+
+  background: transparent;
+
+  color: var(--blue);
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.switch-mode button:hover {
+  color: var(--blue-dark);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.login-footer {
+  margin: 30px 0 0;
+
+  text-align: center;
+
+  color: #94a5bd;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+button:focus-visible,
+input:focus-visible {
+  outline:
+    3px solid rgba(37, 99, 235, 0.2);
+
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .login-page {
+    grid-template-columns: 40% 60%;
+  }
+
+  .login-brand {
+    padding: 45px;
+  }
+
+  .login-section {
+    padding: 40px;
+  }
+
+  .brand-content h1 {
+    font-size: 39px;
+  }
+
+  .login-card {
+    max-width: 500px;
+
+    padding: 38px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .login-page {
+    display: block;
+
+    min-height: 100vh;
+  }
+
+
+  .login-brand {
+    display: none;
+  }
+
+
+  .login-section {
+    min-height: 100vh;
+
+    padding: 35px 18px;
+
+    box-sizing: border-box;
+
+    background:
+      radial-gradient(
+        circle at 10% 10%,
+        rgba(198, 232, 213, 0.6),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 90% 15%,
+        rgba(255, 214, 205, 0.6),
+        transparent 27%
+      ),
+      radial-gradient(
+        circle at 80% 90%,
+        rgba(218, 211, 255, 0.55),
+        transparent 30%
+      ),
+      #fafbff;
+  }
+
+
+  .mobile-logo {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin-bottom: 28px;
+  }
+
+  .mobile-logo .brand-icon {
+    margin-bottom: 12px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #eaf2ff,
+        #edf7f0
+      );
+
+    color: var(--blue);
+
+    border:
+      1px solid #d8e6f8;
+  }
+
+  .mobile-logo h1 {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 27px;
+
+    font-weight: 800;
+  }
+
+
+  .login-card {
+    max-width: 520px;
+
+    padding: 34px 28px;
+
+    border-radius: 24px;
+  }
+
+
+  .login-heading {
+    text-align: center;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+  .login-section {
+    padding: 20px 12px;
+  }
+
+  .login-card {
+    padding: 28px 20px;
+
+    border-radius: 21px;
+  }
+
+  .login-heading h2 {
+    font-size: 28px;
+  }
+
+  .login-heading p {
+    font-size: 14px;
+  }
+
+  .role-button {
+    min-height: 50px;
+
+    font-size: 14px;
+  }
+
+  .form-group input {
+    min-height: 49px;
+  }
+
+  .submit-button {
+    min-height: 51px;
+  }
+
+  .login-page::before {
+    font-size: 28px;
+
+    right: 10px;
+  }
+
+  .login-page::after {
+    font-size: 34px;
+
+    right: 5px;
+  }
+}
+.auth-error {
+  background: #fff0f1;
+  color: #c0394b;
+  border: 1px solid #f3c4ca;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
