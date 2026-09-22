@@ -21,6 +21,8 @@ import {
 
 import "./Dashboard.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 // =====================================================
 // TYPES
 // =====================================================
@@ -256,7 +258,7 @@ export default function StudentDashboard() {
         }
 
         const response = await fetch(
-          "http://127.0.0.1:8000/documents",
+          `${API_URL}/documents`,
           {
             method: "GET",
             headers: {
@@ -298,6 +300,7 @@ export default function StudentDashboard() {
 
   const loadChatHistory = async () => {
     const user = getLoggedInUser();
+
     const token = localStorage.getItem(
       "campusconnect_token"
     );
@@ -317,7 +320,7 @@ export default function StudentDashboard() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/chat-history",
+        `${API_URL}/chat-history`,
         {
           method: "GET",
           headers: {
@@ -335,12 +338,15 @@ export default function StudentDashboard() {
       const data = await response.json();
 
       setChatHistory(data.history || []);
+
     } catch (error) {
       console.error(
         "Chat history loading error:",
         error
       );
+
       setChatHistory([]);
+
     } finally {
       setChatHistoryLoading(false);
     }
@@ -426,7 +432,7 @@ export default function StudentDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/student/upload",
+          `${API_URL}/student/upload`,
           {
             method: "POST",
             headers: {
@@ -571,8 +577,8 @@ export default function StudentDashboard() {
 
       const endpoint =
         useStudentDocument
-          ? "http://127.0.0.1:8000/student/chat"
-          : "http://127.0.0.1:8000/chat";
+          ? `${API_URL}/student/chat`
+          : `${API_URL}/chat`;
 
       // =================================================
       // SEND QUESTION
@@ -587,6 +593,7 @@ export default function StudentDashboard() {
             headers: {
               "Content-Type":
                 "application/json",
+
               Authorization:
                 `Bearer ${token}`,
             },
@@ -619,9 +626,11 @@ export default function StudentDashboard() {
 
       const assistantMessage: Message = {
         role: "assistant",
+
         content:
           data.answer ||
           "I couldn't generate an answer.",
+
         sources:
           data.sources || [],
       };
@@ -856,7 +865,10 @@ export default function StudentDashboard() {
               type="button"
               onClick={() => {
                 const nextValue = !showChatHistory;
-                setShowChatHistory(nextValue);
+
+                setShowChatHistory(
+                  nextValue
+                );
 
                 if (nextValue) {
                   loadChatHistory();
@@ -878,6 +890,7 @@ export default function StudentDashboard() {
               }}
             >
               <MessageSquare size={16} />
+
               {showChatHistory
                 ? "Hide Chat History"
                 : "Chat History"}
@@ -933,15 +946,18 @@ export default function StudentDashboard() {
                 <button
                   type="button"
                   onClick={loadChatHistory}
-                  disabled={chatHistoryLoading}
+                  disabled={
+                    chatHistoryLoading
+                  }
                   style={{
                     border: "none",
                     background: "transparent",
                     color: "#1d5a91",
                     fontWeight: 700,
-                    cursor: chatHistoryLoading
-                      ? "default"
-                      : "pointer",
+                    cursor:
+                      chatHistoryLoading
+                        ? "default"
+                        : "pointer",
                   }}
                 >
                   {chatHistoryLoading
@@ -964,9 +980,12 @@ export default function StudentDashboard() {
                     size={18}
                     className="loading-icon"
                   />
+
                   Loading chat history...
                 </div>
+
               ) : chatHistory.length === 0 ? (
+
                 <div
                   style={{
                     padding: "18px",
@@ -978,7 +997,9 @@ export default function StudentDashboard() {
                 >
                   No previous conversations yet.
                 </div>
+
               ) : (
+
                 <div
                   style={{
                     display: "flex",
@@ -988,62 +1009,66 @@ export default function StudentDashboard() {
                     overflowY: "auto",
                   }}
                 >
-                  {chatHistory.map((item) => (
-                    <div
-                      key={item.id}
-                      style={{
-                        padding: "14px",
-                        borderRadius: "12px",
-                        background: "#f8fafc",
-                        border: "1px solid #e8eef5",
-                      }}
-                    >
+                  {chatHistory.map(
+                    (item) => (
                       <div
+                        key={item.id}
                         style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "flex-start",
-                          gap: "12px",
-                          marginBottom: "8px",
+                          padding: "14px",
+                          borderRadius: "12px",
+                          background: "#f8fafc",
+                          border: "1px solid #e8eef5",
                         }}
                       >
-                        <strong
+                        <div
                           style={{
-                            color: "#12366b",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "flex-start",
+                            gap: "12px",
+                            marginBottom: "8px",
+                          }}
+                        >
+                          <strong
+                            style={{
+                              color: "#12366b",
+                              fontSize: "14px",
+                            }}
+                          >
+                            {item.question}
+                          </strong>
+
+                          <span
+                            style={{
+                              flexShrink: 0,
+                              color: "#94a3b8",
+                              fontSize: "11px",
+                            }}
+                          >
+                            {new Date(
+                              item.created_at
+                            ).toLocaleString()}
+                          </span>
+                        </div>
+
+                        <div
+                          style={{
+                            color: "#334155",
                             fontSize: "14px",
+                            lineHeight: 1.6,
                           }}
                         >
-                          {item.question}
-                        </strong>
-
-                        <span
-                          style={{
-                            flexShrink: 0,
-                            color: "#94a3b8",
-                            fontSize: "11px",
-                          }}
-                        >
-                          {new Date(
-                            item.created_at
-                          ).toLocaleString()}
-                        </span>
+                          <ReactMarkdown
+                            remarkPlugins={[
+                              remarkGfm,
+                            ]}
+                          >
+                            {item.answer}
+                          </ReactMarkdown>
+                        </div>
                       </div>
-
-                      <div
-                        style={{
-                          color: "#334155",
-                          fontSize: "14px",
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        <ReactMarkdown
-                          remarkPlugins={[remarkGfm]}
-                        >
-                          {item.answer}
-                        </ReactMarkdown>
-                      </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               )}
             </div>
@@ -1188,7 +1213,9 @@ export default function StudentDashboard() {
                     onClick={() =>
                       fileInputRef.current?.click()
                     }
-                    disabled={uploadingDocument}
+                    disabled={
+                      uploadingDocument
+                    }
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -1286,14 +1313,12 @@ export default function StudentDashboard() {
                               <span
                                 key={sourceIndex}
                               >
-
                                 {source.source}
 
                                 {source.page !== null &&
                                   ` • Page ${
                                     source.page + 1
                                   }`}
-
                               </span>
 
                             )
@@ -1382,7 +1407,9 @@ export default function StudentDashboard() {
                 onClick={
                   uploadStudentDocument
                 }
-                disabled={uploadingDocument}
+                disabled={
+                  uploadingDocument
+                }
               >
 
                 {uploadingDocument ? (
@@ -1806,12 +1833,10 @@ export default function StudentDashboard() {
                 }
                 disabled={!isEditingProfile}
               >
-
                 <option>1st Year</option>
                 <option>2nd Year</option>
                 <option>3rd Year</option>
                 <option>4th Year</option>
-
               </select>
 
             </div>
@@ -1948,13 +1973,11 @@ export default function StudentDashboard() {
               handleNavigation("ask")
             }
           >
-
             <MessageSquare size={19} />
 
             <span>
               Ask
             </span>
-
           </button>
 
           <button
@@ -1968,13 +1991,11 @@ export default function StudentDashboard() {
               handleNavigation("knowledge")
             }
           >
-
             <BookOpen size={19} />
 
             <span>
               College Knowledge
             </span>
-
           </button>
 
         </nav>
@@ -1992,13 +2013,11 @@ export default function StudentDashboard() {
               handleNavigation("settings")
             }
           >
-
             <Settings size={19} />
 
             <span>
               Settings
             </span>
-
           </button>
 
           <button
@@ -2006,13 +2025,11 @@ export default function StudentDashboard() {
             className="nav-item logout"
             onClick={handleLogout}
           >
-
             <LogOut size={19} />
 
             <span>
               Logout
             </span>
-
           </button>
 
         </div>

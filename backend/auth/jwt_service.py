@@ -1,15 +1,30 @@
+import os
+
 from datetime import datetime, timedelta, timezone
 
+from dotenv import load_dotenv
 from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 
 # =====================================================
+# LOAD ENVIRONMENT VARIABLES
+# =====================================================
+
+load_dotenv()
+
+
+# =====================================================
 # JWT CONFIGURATION
 # =====================================================
 
-SECRET_KEY = "campusconnect-super-secret-key-change-later"
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+if not SECRET_KEY:
+    raise RuntimeError(
+        "SECRET_KEY is not configured in the .env file."
+    )
 
 ALGORITHM = "HS256"
 

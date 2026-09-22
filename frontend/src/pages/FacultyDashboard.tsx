@@ -27,6 +27,12 @@ import {
 import "./Dashboard.css";
 
 // =====================================================
+// API
+// =====================================================
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+// =====================================================
 // TYPES
 // =====================================================
 
@@ -69,13 +75,11 @@ export default function FacultyDashboard() {
   useEffect(() => {
     const user = getLoggedInUser();
 
-    // No user logged in
     if (!user) {
       navigate("/");
       return;
     }
 
-    // Student trying to access faculty dashboard
     if (user.role !== "faculty") {
       navigate("/student");
     }
@@ -199,7 +203,7 @@ export default function FacultyDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/documents",
+          `${API_URL}/documents`,
           {
             method: "GET",
             headers: {
@@ -273,7 +277,7 @@ export default function FacultyDashboard() {
     try {
       const response =
         await fetch(
-          "http://127.0.0.1:8000/chat-history",
+          `${API_URL}/chat-history`,
           {
             method: "GET",
             headers: {
@@ -406,9 +410,11 @@ export default function FacultyDashboard() {
     }
 
     const user = getLoggedInUser();
-    const token = localStorage.getItem(
-      "campusconnect_token"
-    );
+
+    const token =
+      localStorage.getItem(
+        "campusconnect_token"
+      );
 
     if (!user || user.role !== "faculty") {
       alert("Please log in again.");
@@ -435,11 +441,12 @@ export default function FacultyDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/upload",
+          `${API_URL}/upload`,
           {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization:
+                `Bearer ${token}`,
             },
             body: formData,
           }
@@ -512,8 +519,7 @@ export default function FacultyDashboard() {
       return;
     }
 
-    const userMessage:
-      Message = {
+    const userMessage: Message = {
       role: "user",
       content:
         currentQuestion,
@@ -531,11 +537,17 @@ export default function FacultyDashboard() {
 
     try {
       const user = getLoggedInUser();
-      const token = localStorage.getItem(
-        "campusconnect_token"
-      );
 
-      if (!user || user.role !== "faculty" || !token) {
+      const token =
+        localStorage.getItem(
+          "campusconnect_token"
+        );
+
+      if (
+        !user ||
+        user.role !== "faculty" ||
+        !token
+      ) {
         throw new Error(
           "Your login session has expired. Please log in again."
         );
@@ -543,13 +555,14 @@ export default function FacultyDashboard() {
 
       const response =
         await fetch(
-          "http://127.0.0.1:8000/chat",
+          `${API_URL}/chat`,
           {
             method: "POST",
 
             headers: {
               "Content-Type":
                 "application/json",
+
               Authorization:
                 `Bearer ${token}`,
             },
@@ -588,7 +601,7 @@ export default function FacultyDashboard() {
         ]
       );
 
-      // Refresh the PostgreSQL-backed history
+      // Refresh PostgreSQL-backed history
       // after saving the latest conversation.
       await loadChatHistory();
 
@@ -1292,7 +1305,7 @@ export default function FacultyDashboard() {
                           try {
                             const fileUrl =
                               document.file_url ||
-                              `http://127.0.0.1:8000/files/${encodeURIComponent(
+                              `${API_URL}/files/${encodeURIComponent(
                                 document.filename
                               )}`;
 

@@ -1,5 +1,9 @@
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+import os
+import shutil
+import tempfile
+
+from dotenv import load_dotenv
+
 from fastapi import (
     FastAPI,
     UploadFile,
@@ -8,24 +12,79 @@ from fastapi import (
     Depends
 )
 
-from fastapi.responses import FileResponse 
-from rag.chat_service import ask_question
-from rag.vector_store import add_documents
-from rag.text_processor import split_documents
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+
+from pydantic import BaseModel
+
 from langchain_community.document_loaders import PyPDFLoader
-
-from document_store import save_document, get_documents
-from auth.auth_service import create_user, login_user
-from auth.jwt_service import get_current_user
-
-from database import initialize_database, get_connection
-
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
-import os
-import shutil
-import tempfile
+from rag.chat_service import ask_question
+from rag.vector_store import add_documents
+from rag.text_processor import split_documents
+
+from document_store import (
+    save_document,
+    get_documents
+)
+
+from auth.auth_service import (
+    create_user,
+    login_user
+)
+
+from auth.jwt_service import (
+    get_current_user
+)
+
+from database import (
+    initialize_database,
+    get_connection
+)
+
+
+# =====================================================
+# LOAD ENVIRONMENT VARIABLES
+# =====================================================
+
+load_dotenv()
+
+
+# =====================================================
+# DEPLOYMENT CONFIGURATION
+# =====================================================
+
+# Local development:
+# http://127.0.0.1:8000
+#
+# Production:
+# Set BACKEND_URL in Render environment variables.
+#
+# Example:
+# BACKEND_URL=https://your-backend.onrender.com
+
+BACKEND_URL = os.getenv(
+    "BACKEND_URL",
+    "http://127.0.0.1:8000"
+).rstrip("/")
+
+
+# Frontend URL used for CORS.
+#
+# Local development uses localhost/127.0.0.1.
+#
+# Production:
+# Set FRONTEND_URL in Render.
+#
+# Example:
+# FRONTEND_URL=https://your-frontend.vercel.app
+
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    ""
+).rstrip("/")
 
 
 # =====================================================
@@ -66,14 +125,21 @@ student_embeddings = HuggingFaceEmbeddings(
 # CORS
 # =====================================================
 
+allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+]
+
+# Add production frontend URL when configured.
+if FRONTEND_URL:
+    allowed_origins.append(FRONTEND_URL)
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -112,6 +178,7 @@ def save_chat_history(
     connection = get_connection()
 
     try:
+
         with connection.cursor() as cursor:
 
             cursor.execute(
@@ -144,7 +211,9 @@ def save_chat_history(
 @app.post("/chat")
 def chat(
     request: QuestionRequest,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(
+        get_current_user
+    )
 ):
 
     user_id = current_user["user_id"]
@@ -168,7 +237,9 @@ def chat(
 
 @app.get("/chat-history")
 def get_chat_history(
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(
+        get_current_user
+    )
 ):
 
     user_id = current_user["user_id"]
@@ -232,45 +303,80 @@ def health_check():
 # =====================================================
 
 @app.get("/documents")
-def documents(
-    current_user: dict = Depends(get_current_user)
-):
+def documents():
 
-    documents = get_documents()
+    # This returns ONLY official documents
+    # saved through the faculty /upload endpoint.
+    #
+    # Student temporary documents are NOT stored here.
 
-    for document in documents:
-        filename = document.get("filename")
+    documents_list = get_documents()
+
+    # Add the backend file URL dynamically.
+    #
+    # Local:
+    # http://127.0.0.1:8000/files/filename.pdf
+    #
+    # Production:
+    # https://your-backend.onrender.com/files/filename.pdf
+
+    for document in documents_list:
+
+        filename = document.get(
+            "filename"
+        )
 
         if filename:
             document["file_url"] = (
-                "http://127.0.0.1:8000/files/"
-                + filename
+                f"{BACKEND_URL}/files/"
+                f"{filename}"
             )
 
-    return documents
+    return documents_list
+
+
+# =====================================================
+# VIEW OFFICIAL PDF
+# =====================================================
 
 @app.get("/files/{filename}")
 def view_document(
     filename: str,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(
+        get_current_user
+    )
 ):
+
+    # Only students and faculty can view
+    # official college documents.
+
     if current_user["role"] not in [
         "student",
         "faculty"
     ]:
+
         raise HTTPException(
             status_code=403,
-            detail="You are not authorized to view documents."
+            detail=(
+                "You are not authorized "
+                "to view documents."
+            )
         )
 
-    safe_filename = os.path.basename(filename)
+    # Prevent directory traversal.
+    safe_filename = os.path.basename(
+        filename
+    )
 
     file_path = os.path.join(
         "uploads",
         safe_filename
     )
 
-    if not os.path.exists(file_path):
+    if not os.path.exists(
+        file_path
+    ):
+
         raise HTTPException(
             status_code=404,
             detail="Document not found."
@@ -281,6 +387,8 @@ def view_document(
         media_type="application/pdf",
         filename=safe_filename
     )
+
+
 # =====================================================
 # SIGNUP
 # =====================================================
@@ -289,6 +397,8 @@ def view_document(
 def signup(
     request: SignupRequest
 ):
+
+    # Only these two roles are supported.
 
     if request.role not in [
         "student",
@@ -351,10 +461,13 @@ def login(
 @app.post("/upload")
 async def upload_file(
     file: UploadFile = File(...),
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(
+        get_current_user
+    )
 ):
 
-    # Only faculty should upload official documents.
+    # Only faculty can upload official
+    # college documents.
 
     if current_user["role"] != "faculty":
 
@@ -370,7 +483,9 @@ async def upload_file(
     # CHECK FILE TYPE
     # =================================================
 
-    if not file.filename.lower().endswith(".pdf"):
+    if not file.filename.lower().endswith(
+        ".pdf"
+    ):
 
         raise HTTPException(
             status_code=400,
@@ -390,12 +505,20 @@ async def upload_file(
     )
 
     # =================================================
+    # SAFE FILE NAME
+    # =================================================
+
+    safe_filename = os.path.basename(
+        file.filename
+    )
+
+    # =================================================
     # FILE PATH
     # =================================================
 
     file_path = os.path.join(
         "uploads",
-        file.filename
+        safe_filename
     )
 
     # =================================================
@@ -460,7 +583,7 @@ async def upload_file(
     # =================================================
 
     document = save_document(
-        filename=file.filename,
+        filename=safe_filename,
         pages=page_count,
         chunks=len(chunks),
         characters=len(full_text)
@@ -477,7 +600,7 @@ async def upload_file(
             "to knowledge base",
 
         "filename":
-            file.filename,
+            safe_filename,
 
         "pages":
             page_count,
@@ -503,7 +626,9 @@ async def upload_file(
 @app.post("/student/upload")
 async def upload_student_document(
     file: UploadFile = File(...),
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(
+        get_current_user
+    )
 ):
 
     # =================================================
@@ -526,7 +651,9 @@ async def upload_student_document(
     # CHECK FILE TYPE
     # =================================================
 
-    if not file.filename.lower().endswith(".pdf"):
+    if not file.filename.lower().endswith(
+        ".pdf"
+    ):
 
         raise HTTPException(
             status_code=400,
@@ -601,7 +728,7 @@ async def upload_student_document(
         )
 
         # =================================================
-        # STORE IN MEMORY
+        # STORE VECTOR STORE IN MEMORY
         # =================================================
 
         student_documents[user_id] = {
@@ -638,7 +765,9 @@ async def upload_student_document(
 
         if (
             temp_path
-            and os.path.exists(temp_path)
+            and os.path.exists(
+                temp_path
+            )
         ):
 
             os.remove(
@@ -653,7 +782,9 @@ async def upload_student_document(
 @app.post("/student/chat")
 def student_chat(
     request: QuestionRequest,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(
+        get_current_user
+    )
 ):
 
     # =================================================
@@ -698,14 +829,16 @@ def student_chat(
         )
 
     # =================================================
-    # ASK QUESTION
+    # ASK QUESTION USING STUDENT VECTOR STORE
     # =================================================
 
     result = ask_question(
         question=request.question,
-        custom_vector_store=student_document[
-            "vector_store"
-        ]
+        custom_vector_store=(
+            student_document[
+                "vector_store"
+            ]
+        )
     )
 
     # =================================================

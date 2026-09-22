@@ -11,6 +11,8 @@ import {
 
 import "./Login.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Login() {
   const navigate = useNavigate();
 
@@ -82,7 +84,7 @@ export default function Login() {
       if (isSignup) {
 
         const response = await fetch(
-          "http://localhost:8000/signup",
+          `${API_URL}/signup`,
           {
             method: "POST",
 
@@ -149,7 +151,7 @@ export default function Login() {
       // =================================================
 
       const response = await fetch(
-        "http://localhost:8000/login",
+        `${API_URL}/login`,
         {
           method: "POST",
 
